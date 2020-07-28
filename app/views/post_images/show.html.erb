@@ -18,10 +18,21 @@
               <li>
                 <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
               </li>
+              <% if @post_image.favorited_by?(current_user) %>
               <li>
-                <i class="fa fa-heart"></i>
-                <a href="#">202 いいね</a>
+                <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+                  <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                  <%= @post_image.favorites.count %> いいね
+                <% end %>
               </li>
+              <% else %>
+              <li>
+                <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <%= @post_image.favorites.count %> いいね
+                <% end %>
+              </li>
+              <% end %>
               <li>
                 <i class="fa fa-comment"></i>
                 <a href="#comments"><%= @post_image.post_comments.count %></a>
@@ -31,30 +42,6 @@
               <p><%= @post_image.caption %></p>
             </div>
           </div>
-          <div class="post-content">
-            <h2 class="post-title">ここにタイトル</h2>
-            <ul class="meta-info-cells v4 float-wrapper">
-              <li>
-                <i class="fa fa-user"></i>By
-                <a href="#">投稿者名</a>
-              </li>
-              <li>
-                <i class="fa fa-calendar"></i>2017/07/21
-              </li>
-              <li>
-                <i class="fa fa-heart"></i>
-                <a href="#">202 いいね</a>
-              </li>
-              <li>
-                <i class="fa fa-comment"></i>
-                <a href="#comments">4</a>
-              </li>
-            </ul>
-            <div class="post-content-inner mt-20">
-              <p>ここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキストここにテキスト</p>
-            </div>
-          </div>
-
           <div class="comment-list bt style-2" id="comments">
             <div class="float-wrapper">
               <h2 class="comment-count"><%= @post_image.post_comments.count %>件コメント</h2>
